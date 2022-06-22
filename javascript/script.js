@@ -3,10 +3,12 @@ const gridContainer = document.createElement("div");
 gridContainer.classList.add("gridContainer");
 const Container = document.createElement("div");
 Container.classList.add("container");
-let color = "red";
-let boardColor = "black";
+let color = "blue";
+let boardColor = "white";
 let gridNumber = 16;
 let boardSize = 640;
+let rainbow = false;
+let eraser = false;
 
 function createBoard(gridNumber, gridContainer) {
     const divGridTemp = document.querySelectorAll(".grid");
@@ -45,12 +47,16 @@ function addEvent() {
 }
 
 function colorizeDiv(event) {
-    event.target.style.cssText = `background-color: ${color};`;
+    if (eraser) color = boardColor;
+    else if (rainbow) rainbowFunction();
+    else color = "black";
+    event.target.style.backgroundColor = `${color}`;
 }
 
 function clean() {
+    divGrid = Array.from(document.querySelectorAll(".grid"));
     divGrid.forEach(
-        (element) => (element.style.cssText = `background-color: ${boardColor};`)
+        (element) => (element.style.backgroundColor = `${boardColor}`)
     );
 }
 
@@ -68,3 +74,22 @@ function buttonResize() {
 
 const button = document.getElementById("gridSize");
 button.addEventListener("click", () => buttonResize());
+const buttonRainbow = document.getElementById("rainbow");
+buttonRainbow.addEventListener("click", () => {
+    eraser = false;
+    rainbow ? (rainbow = false) : (rainbow = true);
+});
+const buttonClean = document.getElementById("clean");
+buttonClean.addEventListener("click", () => clean());
+
+const buttonErase = document.getElementById("erase");
+buttonErase.addEventListener("click", () => {
+    rainbow = false;
+    eraser ? (eraser = false) : (eraser = true);
+});
+
+function rainbowFunction() {
+    color = `rgb(${Math.round(Math.random() * 256)},${Math.round(
+		Math.random() * 256
+	)},${Math.round(Math.random() * 256)})`;
+}
