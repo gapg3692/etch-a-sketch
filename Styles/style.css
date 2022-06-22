@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template: repeat(16, auto) / repeat(16, auto);
+    justify-content: center;
+    align-content: center;
+    height: fit-content;
+    width: fit-content;
+    border: 1px solid;
+}
+
+.grid {
+    width: 40px;
+    height: 40px;
+}
