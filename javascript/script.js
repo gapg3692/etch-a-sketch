@@ -3,6 +3,8 @@ const gridContainer = document.createElement("div");
 gridContainer.classList.add("gridContainer");
 const Container = document.createElement("div");
 Container.classList.add("container");
+let color = "red";
+let boardColor = "black";
 
 for (i = 1; i <= 256; i++) {
     let div = document.createElement("div");
@@ -13,6 +15,18 @@ for (i = 1; i <= 256; i++) {
 Container.appendChild(gridContainer);
 body.appendChild(Container);
 
-const divGrid = document.querySelectorAll(".grid");
+const divGrid = Array.from(document.querySelectorAll(".grid"));
 
-console.log(divGrid);
+divGrid.forEach((element) =>
+    element.addEventListener("mouseenter", colorizeDiv)
+);
+
+function colorizeDiv(event) {
+    event.target.style.cssText = `background-color: ${color};`;
+}
+
+function clean() {
+    divGrid.forEach(
+        (element) => (element.style.cssText = `background-color: ${boardColor};`)
+    );
+}
